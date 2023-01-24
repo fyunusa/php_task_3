@@ -278,7 +278,7 @@
                     success: function(data) {
                         $("#results").empty();
                         for (let i = 0; i < data.length; i++) {
-                            $("#results").append('<li class="list-group-item">' + data[i]['named'] + "</li>");
+                            $("#results").append('<li class="list-group-item">' + data[i]['name'] + "</li>");
                         }
                     }
                 });
@@ -315,6 +315,7 @@
         //     })
         //     return change
         // }
+        // UmarF@123456
 
         function CoinCalc(amount) {
             $('#coin-result').empty()
