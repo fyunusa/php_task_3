@@ -17,11 +17,13 @@ class Airports extends CI_Controller
     {
         $search_term = $this->input->get('search');
 
-        $this->db->select('name');
+        $this->db->select(array('name', 'longitude_deg', 'latitude_deg'));
+        $this->db->from('airports');
         $this->db->like('name', $search_term);
 
-        $query = $this->db->get('airports');
-        $airports = array_column($query->result_array(), 'name');
+        $query = $this->db->get();
+        // $airports = array_column($query->result_array(), 'name');
+        $airports = $query->result();
 
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($airports));

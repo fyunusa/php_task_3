@@ -10,14 +10,15 @@ class Weather extends CI_Controller
         $units = 'no'; // Celsius
         // $url = 'http://api.weatherapi.com/v1/current.json?key=6d641ac9e21b4590b7a140211232001&q=Lagos&aqi=no';
 
-        $weather_data = json_decode(file_get_contents('https://api.weatherapi.com/v1/current.json?key=' . $api_key . '&q=' . $city . '&units=' . $units));
+        $weather_data = json_decode(file_get_contents('https://api.weatherapi.com/v1/current.json?key=' . $api_key . '&q=' . $city . '&units=' . $units), true);
+        // echo json_encode($weather_data);
 
-        if ($weather_data->error) {
+        if ((isset($weather_data['error']))) {
             // Error handling
             echo 'Error retrieving weather data';
         } else {
-            $temperature = $weather_data->current->temp_c;
-            $condition = $weather_data->current->condition->text;
+            $temperature = $weather_data['current']['temp_c'];
+            $condition = $weather_data['current']['condition']['text'];
 
 
 
@@ -31,21 +32,12 @@ class Weather extends CI_Controller
                 $img = 'cloud.png';
             }
 
-            // if ($condition == 'Sunny') {
-            //     $img = 'sunny.png';
-            // } else if ($condition == 'Raining') {
-            //     $img = 'rainy.jpg';
-            // } else if ($condition == 'Snowing') {
-            //     $img = 'snowy.jpg';
-            // } else {
-            //     $img = 'mild.jpg';
-            // }
-
-            $data = array(
+            $data = [
                 'temperature' => $temperature,
                 'condition' => $condition,
                 'img' => $img
-            );
+            ];
+            // echo json_encode($data);
             return $data;
             // $this->load->view('weather/weather_view', $data);
         }

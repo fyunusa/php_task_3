@@ -3,7 +3,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 require_once(APPPATH . 'controllers/Airports.php');
 require_once(APPPATH . 'controllers/Analytic.php');
-require_once(APPPATH . 'controllers/Coin.php');
+// require_once(APPPATH . 'controllers/Coin.php');
 require_once(APPPATH . 'controllers/Image.php');
 require_once(APPPATH . 'controllers/Reddit.php');
 require_once(APPPATH . 'controllers/Time.php');
@@ -18,8 +18,9 @@ class Home extends CI_Controller
         $click_control = new Analytic;
         $temperature_control = new Weather;
         $reddit_control = new Reddit;
-        $coin_control = new Coin;
+        // $coin_control = new Coin;
         $image_control = new Image;
+
 
         if ($this->input->post('code')) {
             return $this->verify2fa();
@@ -36,13 +37,10 @@ class Home extends CI_Controller
         $itm = [
             'time' => $time_control->current_time(),
             'clicks' => $click_control->index()['count'],
-            // 'export_xml' => $click_control->export_xml()['export'],
-            'export_xml' => 'dummy',
             'weather_temperature' => $temperature_control->current_weather()['temperature'],
             'weather_condition' => $temperature_control->current_weather()['condition'],
             'img' => $temperature_control->current_weather()['img'],
             'reddit_post' => $reddit_control->reddit_data()['posts'],
-            'coin_result' => $coin_control->calculate(),
             'last_image' => $image_control->last_img(),
         ];
 

@@ -17,7 +17,7 @@ class image_model extends Task3_Model
 
         $this->db->select("*");
         $this->db->from($this->table);
-        $this->db->order_by("time_upload", "desc");
+        $this->db->order_by("id", "desc");
         $this->db->limit(1);
         $query = $this->db->get();
 
